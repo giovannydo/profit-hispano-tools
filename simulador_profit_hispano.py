@@ -25,13 +25,10 @@ st.markdown("""
     --border: rgba(74,108,247,0.25);
 }
 
-/* Fuente global — NO tocar íconos */
 body, p, div, h1, h2, h3, h4, h5, h6,
 input, textarea, select, label, a, li, td, th {
     font-family: 'Sora', sans-serif !important;
 }
-
-/* Restaurar íconos de Streamlit */
 .material-symbols-rounded {
     font-family: 'Material Symbols Rounded' !important;
     font-optical-sizing: auto !important;
@@ -42,9 +39,15 @@ input, textarea, select, label, a, li, td, th {
 }
 
 .stApp { background: var(--bg) !important; color: var(--text) !important; }
-#MainMenu, footer, header { visibility: hidden; }
 
-/* Layout compacto */
+/* ── Ocultar branding de Streamlit ── */
+#MainMenu, footer, header { visibility: hidden; }
+[data-testid="stAppDeployButton"]  { display: none !important; }
+[data-testid="stToolbar"]          { display: none !important; }
+[data-testid="stDecoration"]       { display: none !important; }
+[data-testid="stStatusWidget"]     { display: none !important; }
+.stDeployButton                    { display: none !important; }
+
 .block-container {
     padding-top: 0.5rem !important;
     padding-bottom: 0.3rem !important;
@@ -53,7 +56,7 @@ input, textarea, select, label, a, li, td, th {
     max-width: 100% !important;
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
     background: var(--bg2) !important;
     border-right: 1px solid var(--border) !important;
@@ -65,24 +68,24 @@ input, textarea, select, label, a, li, td, th {
 [data-testid="stSidebar"] * { color: var(--text) !important; }
 [data-testid="stSidebar"] hr { border-color: var(--border) !important; }
 
-/* Botón abrir/cerrar sidebar — visible y con color */
-[data-testid="stSidebarCollapseButton"] {
-    display: none !important;
-}
-[data-testid="stSidebarCollapseButton"] .material-symbols-rounded {
-    color: var(--cyan) !important;
-    font-size: 22px !important;
-}
+/* ── Ocultar botón colapsar (dentro del sidebar) ── */
+[data-testid="stSidebarCollapseButton"] { display: none !important; }
+
+/* ── Botón expandir sidebar — siempre visible y llamativo ── */
 [data-testid="collapsedControl"] {
-    background: var(--bg2) !important;
-    border-right: 2px solid var(--cyan) !important;
+    background: #4A6CF7 !important;
+    border-right: 3px solid #48D9E0 !important;
+    border-radius: 0 10px 10px 0 !important;
+    width: 28px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 [data-testid="collapsedControl"] .material-symbols-rounded {
-    color: var(--cyan) !important;
+    color: #ffffff !important;
     font-size: 22px !important;
 }
 
-/* Inputs */
+/* ── Inputs ── */
 input[type="number"] {
     background: var(--bg3) !important;
     border: 1px solid var(--border) !important;
@@ -96,7 +99,7 @@ input[type="number"]:focus {
     box-shadow: 0 0 0 2px rgba(72,217,224,0.15) !important;
 }
 
-/* KPI cards */
+/* ── KPI cards ── */
 [data-testid="metric-container"] {
     background: linear-gradient(135deg, var(--bg2), var(--bg3)) !important;
     border: 1px solid var(--border) !important;
@@ -122,20 +125,17 @@ input[type="number"]:focus {
     color: var(--cyan) !important;
     line-height: 1.2 !important;
 }
-[data-testid="stMetricDelta"] {
-    font-size: 11px !important;
-    font-weight: 500 !important;
-}
+[data-testid="stMetricDelta"] { font-size: 11px !important; font-weight: 500 !important; }
 
-/* Reducir espacio entre elementos */
 [data-testid="stVerticalBlock"] > div { gap: 0.3rem !important; }
 
-/* Tabs */
+/* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     background: var(--bg2) !important;
     border-radius: 8px !important;
     padding: 3px !important;
     gap: 3px !important;
+    overflow-x: auto !important;
 }
 .stTabs [data-baseweb="tab"] {
     font-size: 12px !important;
@@ -144,13 +144,14 @@ input[type="number"]:focus {
     border-radius: 6px !important;
     padding: 5px 14px !important;
     font-family: 'Sora', sans-serif !important;
+    white-space: nowrap !important;
 }
 .stTabs [aria-selected="true"] {
     background: var(--blue) !important;
     color: white !important;
 }
 
-/* Expander */
+/* ── Expander ── */
 .streamlit-expanderHeader {
     background: var(--bg2) !important;
     border: 1px solid var(--border) !important;
@@ -168,6 +169,64 @@ hr { border-color: var(--border) !important; }
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
+
+/* ══════════════════════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════════════════════ */
+
+/* Aviso móvil — oculto en escritorio */
+.mobile-hint { display: none !important; }
+
+@media (max-width: 768px) {
+
+    /* Mostrar aviso móvil */
+    .mobile-hint {
+        display: block !important;
+        background: rgba(74,108,247,0.15) !important;
+        border: 1px solid rgba(74,108,247,0.4) !important;
+        border-left: 3px solid #48D9E0 !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        margin-bottom: 8px !important;
+        font-size: 13px !important;
+        color: #EEF2FF !important;
+        text-align: center !important;
+    }
+
+    /* Reducir padding en móvil */
+    .block-container {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+    }
+
+    /* KPIs — cuadrícula 2x2 en móvil */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+    [data-testid="stHorizontalBlock"] > div {
+        min-width: calc(50% - 6px) !important;
+        flex: 1 1 calc(50% - 6px) !important;
+    }
+
+    /* Botón expandir sidebar — más grande en móvil */
+    [data-testid="collapsedControl"] {
+        width: 34px !important;
+        height: 70px !important;
+        border-radius: 0 12px 12px 0 !important;
+    }
+    [data-testid="collapsedControl"] .material-symbols-rounded {
+        font-size: 26px !important;
+    }
+
+    /* KPI font más pequeño en móvil */
+    [data-testid="stMetricValue"] {
+        font-size: 1rem !important;
+    }
+    [data-testid="stMetricLabel"] p {
+        font-size: 9px !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -302,7 +361,7 @@ pct_v         = diff_pct
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  HEADER — muy compacto
+#  HEADER
 # ══════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div style="text-align:center; padding:4px 0 2px 0;">
@@ -319,6 +378,11 @@ st.markdown("""
 </div>
 <div style="height:1px; background:linear-gradient(90deg,transparent,#4A6CF7,transparent);
             margin:5px 0 6px 0;"></div>
+
+<!-- Aviso solo visible en móvil -->
+<div class="mobile-hint">
+    👈 <b style="color:#48D9E0;">Toca la flecha azul</b> a la izquierda para ingresar tus parámetros
+</div>
 """, unsafe_allow_html=True)
 
 
@@ -342,25 +406,28 @@ with c4:
         st.metric("⚡ Multiplicador", f"×{multiplicador:.1f}x",
                   delta=f"Doblas en {r72:.1f} años")
 
-# Insight bar compacta
+# Insight bar — flex-wrap para móvil
 st.markdown(f"""
-<div style="display:flex; gap:5px; margin:5px 0 4px 0;">
-    <div style="flex:1; background:rgba(27,37,80,0.7); border:1px solid rgba(74,108,247,0.2);
-                border-radius:7px; padding:6px 10px; text-align:center;">
+<div style="display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 4px 0;">
+    <div style="flex:1; min-width:140px; background:rgba(27,37,80,0.7);
+                border:1px solid rgba(74,108,247,0.2); border-radius:7px;
+                padding:6px 10px; text-align:center;">
         <div style="font-size:9px; color:#7A94C8; letter-spacing:1px; text-transform:uppercase;">
             El compuesto genera</div>
         <div style="font-size:15px; font-weight:700; color:#48D9E0;">+{diff_pct:.0f}% más</div>
         <div style="font-size:9px; color:#7A94C8;">que el interés simple</div>
     </div>
-    <div style="flex:1; background:rgba(27,37,80,0.7); border:1px solid rgba(74,108,247,0.2);
-                border-radius:7px; padding:6px 10px; text-align:center;">
+    <div style="flex:1; min-width:140px; background:rgba(27,37,80,0.7);
+                border:1px solid rgba(74,108,247,0.2); border-radius:7px;
+                padding:6px 10px; text-align:center;">
         <div style="font-size:9px; color:#7A94C8; letter-spacing:1px; text-transform:uppercase;">
             Tu dinero se multiplica</div>
         <div style="font-size:15px; font-weight:700; color:#4A6CF7;">×{multiplicador:.1f}x</div>
         <div style="font-size:9px; color:#7A94C8;">en {años} años</div>
     </div>
-    <div style="flex:1; background:rgba(27,37,80,0.7); border:1px solid rgba(74,108,247,0.2);
-                border-radius:7px; padding:6px 10px; text-align:center;">
+    <div style="flex:1; min-width:140px; background:rgba(27,37,80,0.7);
+                border:1px solid rgba(74,108,247,0.2); border-radius:7px;
+                padding:6px 10px; text-align:center;">
         <div style="font-size:9px; color:#7A94C8; letter-spacing:1px; text-transform:uppercase;">
             Capital se duplica cada</div>
         <div style="font-size:15px; font-weight:700; color:#9B3DF5;">{r72:.1f} años</div>
@@ -418,7 +485,6 @@ with tab1:
         hovermode="x unified", legend_title_text="", height=268, **PLOT)
     st.plotly_chart(fig1, width="stretch")
 
-    # Conclusión
     st.markdown(f"""
     <div style="background:rgba(74,108,247,0.1); border:1px solid rgba(74,108,247,0.3);
                 border-left:3px solid #48D9E0; border-radius:8px; padding:9px 14px;
