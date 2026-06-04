@@ -286,7 +286,7 @@ def regla_72(tasa): return 72 / (tasa * 100)
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  PLOTLY THEME (CORREGIDO PARA LEYENDA INFERIOR)
+#  PLOTLY THEME (CORREGIDO)
 # ══════════════════════════════════════════════════════════════════════
 PLOT = dict(
     paper_bgcolor='rgba(0,0,0,0)',
@@ -301,9 +301,9 @@ PLOT = dict(
     legend=dict(
         orientation="h", 
         yanchor="top", 
-        y=-0.2, /* La empuja hacia abajo */
+        y=-0.2, # La empuja hacia abajo
         xanchor="center", 
-        x=0.5, /* Centrada perfectamente */
+        x=0.5,  # Centrada perfectamente
         bgcolor='rgba(18,8,42,0.85)', 
         bordercolor='rgba(74,108,247,0.3)',
         borderwidth=1, 
