@@ -40,21 +40,23 @@ input, textarea, select, label, a, li, td, th {
 
 .stApp { background: var(--bg) !important; color: var(--text) !important; }
 
-/* ── Ocultar branding de Streamlit ── */
-#MainMenu, footer, header { visibility: hidden; display: none !important; }
-[data-testid="stAppDeployButton"]  { display: none !important; }
+/* Ocultar branding — header TRANSPARENTE (no oculto) para conservar el ☰ */
+#MainMenu, footer { visibility: hidden; display: none !important; }
+header { background: transparent !important; }
+[data-testid="stHeader"] { background: transparent !important; }
+
+/* Ocultar elementos innecesarios del toolbar */
 [data-testid="stToolbar"]          { display: none !important; }
 [data-testid="stToolbarActions"]   { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 [data-testid="stStatusWidget"]     { display: none !important; }
-[data-testid="stHeader"]           { display: none !important; }
 .stDeployButton                    { display: none !important; }
-.viewerBadge_container__1QSob      { display: none !important; }
-.styles_viewerBadge__1yB5_         { display: none !important; }
-.viewerBadge_link__qRIco           { display: none !important; }
+
+/* Matar badges y logos de Streamlit */
+div[class^="viewerBadge"]          { display: none !important; }
+div[class*="viewerBadge"]          { display: none !important; }
 a[href*="streamlit.io/cloud"]      { display: none !important; }
 a[href*="share.streamlit.io"]      { display: none !important; }
-div[class*="viewerBadge"]          { display: none !important; }
 div[class*="_profileContainer"]    { display: none !important; }
 
 .block-container {
@@ -65,7 +67,7 @@ div[class*="_profileContainer"]    { display: none !important; }
     max-width: 100% !important;
 }
 
-/* ── Sidebar ── */
+/* Sidebar */
 [data-testid="stSidebar"] {
     background: var(--bg2) !important;
     border-right: 1px solid var(--border) !important;
@@ -77,24 +79,25 @@ div[class*="_profileContainer"]    { display: none !important; }
 [data-testid="stSidebar"] * { color: var(--text) !important; }
 [data-testid="stSidebar"] hr { border-color: var(--border) !important; }
 
-/* ── Ocultar botón colapsar (dentro del sidebar) ── */
+/* Ocultar botón colapsar dentro del sidebar */
 [data-testid="stSidebarCollapseButton"] { display: none !important; }
 
-/* ── Botón expandir sidebar — siempre visible y llamativo ── */
+/* Botón expandir sidebar — azul brillante */
 [data-testid="collapsedControl"] {
     background: #4A6CF7 !important;
     border-right: 3px solid #48D9E0 !important;
     border-radius: 0 10px 10px 0 !important;
-    width: 28px !important;
+    width: 32px !important;
     opacity: 1 !important;
     visibility: visible !important;
+    z-index: 999999 !important;
 }
 [data-testid="collapsedControl"] .material-symbols-rounded {
     color: #ffffff !important;
     font-size: 22px !important;
 }
 
-/* ── Inputs ── */
+/* Inputs */
 input[type="number"] {
     background: var(--bg3) !important;
     border: 1px solid var(--border) !important;
@@ -108,7 +111,7 @@ input[type="number"]:focus {
     box-shadow: 0 0 0 2px rgba(72,217,224,0.15) !important;
 }
 
-/* ── KPI cards ── */
+/* KPI cards */
 [data-testid="metric-container"] {
     background: linear-gradient(135deg, var(--bg2), var(--bg3)) !important;
     border: 1px solid var(--border) !important;
@@ -138,7 +141,7 @@ input[type="number"]:focus {
 
 [data-testid="stVerticalBlock"] > div { gap: 0.3rem !important; }
 
-/* ── Tabs ── */
+/* Tabs */
 .stTabs [data-baseweb="tab-list"] {
     background: var(--bg2) !important;
     border-radius: 8px !important;
@@ -160,7 +163,7 @@ input[type="number"]:focus {
     color: white !important;
 }
 
-/* ── Expander ── */
+/* Expander */
 .streamlit-expanderHeader {
     background: var(--bg2) !important;
     border: 1px solid var(--border) !important;
@@ -179,16 +182,10 @@ hr { border-color: var(--border) !important; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
 
-/* ══════════════════════════════════════════════════
-   MOBILE RESPONSIVE
-══════════════════════════════════════════════════ */
-
-/* Aviso móvil — oculto en escritorio */
+/* ══════ MOBILE ══════ */
 .mobile-hint { display: none !important; }
 
 @media (max-width: 768px) {
-
-    /* Mostrar aviso móvil */
     .mobile-hint {
         display: block !important;
         background: rgba(74,108,247,0.15) !important;
@@ -201,14 +198,11 @@ hr { border-color: var(--border) !important; }
         color: #EEF2FF !important;
         text-align: center !important;
     }
-
-    /* Reducir padding en móvil */
     .block-container {
+        padding-top: 1.5rem !important;
         padding-left: 0.6rem !important;
         padding-right: 0.6rem !important;
     }
-
-    /* KPIs — cuadrícula 2x2 en móvil */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
         gap: 6px !important;
@@ -217,41 +211,24 @@ hr { border-color: var(--border) !important; }
         min-width: calc(50% - 6px) !important;
         flex: 1 1 calc(50% - 6px) !important;
     }
-
-    /* Botón expandir sidebar — forzar visible en móvil */
     [data-testid="collapsedControl"] {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        background: #4A6CF7 !important;
-        border-right: 3px solid #48D9E0 !important;
-        border-radius: 0 12px 12px 0 !important;
         width: 36px !important;
-        height: 72px !important;
+        height: 40px !important;
         position: fixed !important;
-        top: 80px !important;
+        top: 15px !important;
         left: 0 !important;
-        z-index: 999999 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
         box-shadow: 0 0 16px rgba(72,217,224,0.5) !important;
     }
     [data-testid="collapsedControl"] .material-symbols-rounded {
-        color: #ffffff !important;
-        font-size: 28px !important;
+        font-size: 24px !important;
     }
-
-    /* KPI font más pequeño en móvil */
-    [data-testid="stMetricValue"] {
-        font-size: 1rem !important;
-    }
-    [data-testid="stMetricLabel"] p {
-        font-size: 9px !important;
-    }
-
-    /* Gráfico más alto en móvil para que no se vea aplastado */
+    [data-testid="stMetricValue"] { font-size: 1rem !important; }
+    [data-testid="stMetricLabel"] p { font-size: 9px !important; }
     .js-plotly-plot, .plotly, .stPlotlyChart {
-        min-height: 340px !important;
+        min-height: 380px !important;
     }
 }
 </style>
@@ -292,7 +269,7 @@ def regla_72(tasa): return 72 / (tasa * 100)
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  PLOTLY THEME
+#  PLOTLY THEME — leyenda horizontal debajo del gráfico
 # ══════════════════════════════════════════════════════════════════════
 PLOT = dict(
     paper_bgcolor='rgba(0,0,0,0)',
@@ -303,9 +280,18 @@ PLOT = dict(
     yaxis=dict(gridcolor='rgba(74,108,247,0.12)', linecolor='rgba(74,108,247,0.3)',
                tickprefix='$', tickformat=',.0f',
                tickfont=dict(size=10, color='#7A94C8')),
-    legend=dict(bgcolor='rgba(18,8,42,0.85)', bordercolor='rgba(74,108,247,0.3)',
-                borderwidth=1, font=dict(size=11)),
-    margin=dict(l=6, r=6, t=28, b=6),
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5,
+        bgcolor='rgba(18,8,42,0.85)',
+        bordercolor='rgba(74,108,247,0.3)',
+        borderwidth=1,
+        font=dict(size=11)
+    ),
+    margin=dict(l=6, r=6, t=28, b=60),
     hoverlabel=dict(bgcolor='rgba(18,8,42,0.95)', bordercolor='#4A6CF7',
                     font=dict(family='Sora, sans-serif', size=12)),
 )
@@ -406,7 +392,6 @@ st.markdown("""
 <div style="height:1px; background:linear-gradient(90deg,transparent,#4A6CF7,transparent);
             margin:5px 0 6px 0;"></div>
 
-<!-- Aviso solo visible en móvil -->
 <div class="mobile-hint">
     Toca el ícono <b style="color:#48D9E0;">☰ arriba a la izquierda</b> para ingresar tus datos
 </div>
@@ -433,7 +418,7 @@ with c4:
         st.metric("⚡ Multiplicador", f"×{multiplicador:.1f}x",
                   delta=f"Doblas en {r72:.1f} años")
 
-# Insight bar — flex-wrap para móvil
+# Insight bar
 st.markdown(f"""
 <div style="display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 4px 0;">
     <div style="flex:1; min-width:140px; background:rgba(27,37,80,0.7);
@@ -479,7 +464,6 @@ tab1, tab2, tab3 = st.tabs([
     "📊  Datos Año a Año",
 ])
 
-# ── Tab 1 ─────────────────────────────────────────────────────────────
 with tab1:
     series = ["Interés Simple", "Interés Compuesto"]
     if aportacion > 0:
@@ -509,8 +493,8 @@ with tab1:
     fig1.update_layout(
         title=dict(text="Crecimiento de tu dinero en el tiempo",
                    font=dict(family="Sora", size=12, color="#7A94C8")),
-        hovermode="x unified", legend_title_text="", height=300, **PLOT)
-    st.plotly_chart(fig1, width="stretch")
+        hovermode="x unified", height=320, **PLOT)
+    st.plotly_chart(fig1, use_container_width=True)
 
     st.markdown(f"""
     <div style="background:rgba(74,108,247,0.1); border:1px solid rgba(74,108,247,0.3);
@@ -525,7 +509,6 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-# ── Tab 2 ─────────────────────────────────────────────────────────────
 with tab2:
     col_a, col_b = st.columns(2)
 
@@ -548,8 +531,8 @@ with tab2:
         fig2.update_layout(barmode="stack",
                            title=dict(text=f"¿Cuánto pusiste vs cuánto ganaste? (Año {años})",
                                       font=dict(family="Sora", size=12, color="#7A94C8")),
-                           height=310, **PLOT)
-        st.plotly_chart(fig2, width="stretch")
+                           height=330, **PLOT)
+        st.plotly_chart(fig2, use_container_width=True)
 
     with col_b:
         val_cap = total_ap if aportacion > 0 else principal
@@ -568,10 +551,15 @@ with tab2:
         fig3.update_layout(
             title=dict(text="El dinero trabajando por ti",
                        font=dict(family="Sora", size=12, color="#7A94C8")),
-            height=310, **PLOT)
-        st.plotly_chart(fig3, width="stretch")
+            height=330,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(27,37,80,0.5)',
+            font=dict(family='Sora, sans-serif', color='#7A94C8', size=11),
+            legend=dict(font=dict(size=11)),
+            margin=dict(l=6, r=6, t=28, b=6),
+        )
+        st.plotly_chart(fig3, use_container_width=True)
 
-# ── Tab 3 ─────────────────────────────────────────────────────────────
 with tab3:
     cols_show = ["Año", "Interés Simple", "Interés Compuesto",
                  "Ganancia Simple", "Ganancia Compuesta"]
@@ -590,7 +578,7 @@ with tab3:
                        file_name=f"simulador_{años}a_{tasa*100:.0f}pct.csv",
                        mime="text/csv")
 
-# ── Footer ────────────────────────────────────────────────────────────
+# Footer
 st.markdown("""
 <div style="text-align:center; padding:6px 0 2px 0;
             border-top:1px solid rgba(74,108,247,0.15); margin-top:4px;">
