@@ -41,12 +41,21 @@ input, textarea, select, label, a, li, td, th {
 .stApp { background: var(--bg) !important; color: var(--text) !important; }
 
 /* ── Ocultar branding de Streamlit ── */
-#MainMenu, footer, header { visibility: hidden; }
+#MainMenu, footer, header { visibility: hidden; display: none !important; }
 [data-testid="stAppDeployButton"]  { display: none !important; }
 [data-testid="stToolbar"]          { display: none !important; }
+[data-testid="stToolbarActions"]   { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 [data-testid="stStatusWidget"]     { display: none !important; }
+[data-testid="stHeader"]           { display: none !important; }
 .stDeployButton                    { display: none !important; }
+.viewerBadge_container__1QSob      { display: none !important; }
+.styles_viewerBadge__1yB5_         { display: none !important; }
+.viewerBadge_link__qRIco           { display: none !important; }
+a[href*="streamlit.io/cloud"]      { display: none !important; }
+a[href*="share.streamlit.io"]      { display: none !important; }
+div[class*="viewerBadge"]          { display: none !important; }
+div[class*="_profileContainer"]    { display: none !important; }
 
 .block-container {
     padding-top: 0.5rem !important;
@@ -209,14 +218,27 @@ hr { border-color: var(--border) !important; }
         flex: 1 1 calc(50% - 6px) !important;
     }
 
-    /* Botón expandir sidebar — más grande en móvil */
+    /* Botón expandir sidebar — forzar visible en móvil */
     [data-testid="collapsedControl"] {
-        width: 34px !important;
-        height: 70px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #4A6CF7 !important;
+        border-right: 3px solid #48D9E0 !important;
         border-radius: 0 12px 12px 0 !important;
+        width: 36px !important;
+        height: 72px !important;
+        position: fixed !important;
+        top: 80px !important;
+        left: 0 !important;
+        z-index: 999999 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: 0 0 16px rgba(72,217,224,0.5) !important;
     }
     [data-testid="collapsedControl"] .material-symbols-rounded {
-        font-size: 26px !important;
+        color: #ffffff !important;
+        font-size: 28px !important;
     }
 
     /* KPI font más pequeño en móvil */
@@ -225,6 +247,11 @@ hr { border-color: var(--border) !important; }
     }
     [data-testid="stMetricLabel"] p {
         font-size: 9px !important;
+    }
+
+    /* Gráfico más alto en móvil para que no se vea aplastado */
+    .js-plotly-plot, .plotly, .stPlotlyChart {
+        min-height: 340px !important;
     }
 }
 </style>
@@ -381,7 +408,7 @@ st.markdown("""
 
 <!-- Aviso solo visible en móvil -->
 <div class="mobile-hint">
-    👈 <b style="color:#48D9E0;">Toca la flecha azul</b> a la izquierda para ingresar tus parámetros
+    Toca el ícono <b style="color:#48D9E0;">☰ arriba a la izquierda</b> para ingresar tus datos
 </div>
 """, unsafe_allow_html=True)
 
@@ -482,7 +509,7 @@ with tab1:
     fig1.update_layout(
         title=dict(text="Crecimiento de tu dinero en el tiempo",
                    font=dict(family="Sora", size=12, color="#7A94C8")),
-        hovermode="x unified", legend_title_text="", height=268, **PLOT)
+        hovermode="x unified", legend_title_text="", height=300, **PLOT)
     st.plotly_chart(fig1, width="stretch")
 
     st.markdown(f"""
