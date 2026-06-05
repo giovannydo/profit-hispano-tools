@@ -155,6 +155,24 @@ hr { border-color: var(--border) !important; }
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+    [data-testid="stHorizontalBlock"] > div {
+        min-width: calc(50% - 6px) !important;
+        flex: 1 1 calc(50% - 6px) !important;
+    }
+    [data-testid="stMetricValue"] { font-size: 1rem !important; }
+    [data-testid="stMetricLabel"] p { font-size: 9px !important; }
+    .block-container {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -204,12 +222,25 @@ PLOT = dict(
     yaxis=dict(gridcolor='rgba(74,108,247,0.12)', linecolor='rgba(74,108,247,0.3)',
                tickprefix='$', tickformat=',.0f',
                tickfont=dict(size=10, color='#7A94C8')),
-    legend=dict(bgcolor='rgba(18,8,42,0.85)', bordercolor='rgba(74,108,247,0.3)',
-                borderwidth=1, font=dict(size=11)),
+    legend=dict(
+        x=0.02, y=0.98,
+        xanchor='left', yanchor='top',
+        bgcolor='rgba(18,8,42,0.9)',
+        bordercolor='rgba(74,108,247,0.4)',
+        borderwidth=1,
+        font=dict(size=10, color='#EEF2FF')
+    ),
     margin=dict(l=6, r=6, t=28, b=6),
     hoverlabel=dict(bgcolor='rgba(18,8,42,0.95)', bordercolor='#4A6CF7',
                     font=dict(family='Sora, sans-serif', size=12)),
 )
+
+PLOT_CONFIG = {
+    'displayModeBar': False,
+    'scrollZoom': False,
+    'doubleClick': 'reset',
+    'displaylogo': False,
+}
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -402,7 +433,7 @@ with tab1:
         title=dict(text="Crecimiento de tu dinero en el tiempo",
                    font=dict(family="Sora", size=12, color="#7A94C8")),
         hovermode="x unified", legend_title_text="", height=268, **PLOT)
-    st.plotly_chart(fig1, use_container_width=True)
+    st.plotly_chart(fig1, use_container_width=True, config=PLOT_CONFIG)
 
     st.markdown(f"""
     <div style="background:rgba(74,108,247,0.1); border:1px solid rgba(74,108,247,0.3);
@@ -440,7 +471,7 @@ with tab2:
                            title=dict(text=f"¿Cuánto pusiste vs cuánto ganaste? (Año {años})",
                                       font=dict(family="Sora", size=12, color="#7A94C8")),
                            height=310, **PLOT)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, use_container_width=True, config=PLOT_CONFIG)
 
     with col_b:
         val_cap = total_ap if aportacion > 0 else principal
@@ -460,7 +491,7 @@ with tab2:
             title=dict(text="El dinero trabajando por ti",
                        font=dict(family="Sora", size=12, color="#7A94C8")),
             height=310, **PLOT)
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, use_container_width=True, config=PLOT_CONFIG)
 
 with tab3:
     cols_show = ["Año", "Interés Simple", "Interés Compuesto",
